@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import { createTheme, Paper, ThemeProvider } from '@mui/material';
+import Home from '../src/components/Home'
+import ReactDOM from 'react-dom/client';
+import {createBrowserRouter,RouterProvider} from "react-router-dom";
+import Authentication from './components/Authentication';
 import './App.css';
-
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './components/formControl/Login';
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Authentication />
+    },
+    {
+      path: "/home",
+      element: <ProtectedRoute element={<Home />} />
+    },
+    {
+      path:"/login",
+      element: <Login />
+    }
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+ <div>
+      {/* <Home />
+      <Authentication /> */}
+      <RouterProvider router={router} />
     </div>
   );
 }
-
 export default App;
