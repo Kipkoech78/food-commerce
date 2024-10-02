@@ -14,7 +14,7 @@ function App() {
     },
     {
       path: "/home",
-      element: <ProtectedRoute element={<Home />} />
+      element: <Home />
     },
     {
       path:"/login",

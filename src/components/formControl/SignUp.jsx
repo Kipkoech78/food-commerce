@@ -13,8 +13,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios'
 import { Paper } from '@mui/material';
-
-
 function SignUp({switchToLogin}) {
     const [userName, setUserName] = React.useState('')
     const [emailInput, setEmail] = React.useState('')

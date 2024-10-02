@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1,
+        "image": "https://www.foodiesfeed.com/wp-content/uploads/2023/06/ice-cream-cone-splash.jpg",
+        "name": "Pizza",
+        "price": 10
+    },
+    {
+        "id": 2,
+        "image": "https://www.foodiesfeed.com/wp-content/uploads/2023/06/pouring-honey-on-pancakes-1024x1024.jpg",
+
+        "name": "Burger",
+        "price": 5
+    },
+    {
+        "id": 3,
+        "image": "https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg",
+        "name": "Coke",
+        "price": 2
+    },
+    {
+        "id": 4,
+        "image": "https://www.foodiesfeed.com/wp-content/uploads/2023/10/bowl-of-ice-cream-with-chocolate.jpg",
+        "name": "Coke",
+        "price": 2
+    },
+    {
+        "id": 5,
+        "image": "https://www.foodiesfeed.com/wp-content/uploads/2023/10/bowl-of-ice-cream-with-chocolate.jpg",
+        "name": "Coke",
+        "price": 2
+    }
+]

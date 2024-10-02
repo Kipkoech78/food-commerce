@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import TextField from '@mui/material/TextField';
+import { ThemeProvider } from '@emotion/react';
+import { Box, TextField,Button, createTheme, Paper,CssBaseline } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import LoginIcon from '@mui/icons-material/Login';
@@ -7,15 +8,24 @@ import InputLabel from '@mui/material/InputLabel';
 import Alert from '@mui/material/Alert';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import { Paper } from '@mui/material';
 
 
 function Login() {
+  const theme = createTheme({
+    palette: {
+        mode: 'dark',
+      primary: {
+        main: '#ff4400',
+      },
+      secondary: {
+        main: '#f50057',
+      },
+    },
+  });
     const [emailInput, setEmail] = React.useState('')
     const [passwordInput, setPassword] = React.useState('')
     const[success, setsuccess] = useState("")
@@ -43,7 +53,7 @@ const [formValid, setFormValid] = useState()
             }
             try{
              // { withCredentials: true }
-            const res = await axios.post("http://localhost:5000/v1/login/", values, {mode:'cors',})
+            const res = await axios.post("http://localhost:5000/v1/login/", values, {mode:'cors' })
             if (res.data === 'Email doesnt Exist' ){
                 setFormValid("User doesnt Exist. Please Register")                   
             }  
@@ -54,18 +64,15 @@ const [formValid, setFormValid] = useState()
                 }
             else if (res.data.Status === 'login success'){
                     setsuccess("Login success");
-                    console.log("else if  error should be succcess ")
+                    console.log("else if  message should be succcess ")
                     console.log("token is", res.data.token)
                     setEmail('');
                     setPassword('');
                     setLoginStatus(true)
                     // Inside your login success function
-                    localStorage.setItem('token', res.data.token);
- 
+                    localStorage.setItem('token', res.data.token); 
                     userAuthenticated()
-                      navigate('/home', {replace: true})
-                      
-                    
+                    navigate('/home', {replace: true})
                    // navigate('/home', { replace: true });  // Enable this line to redirect
 
                 }
@@ -74,16 +81,13 @@ const [formValid, setFormValid] = useState()
                     setLoginStatus(false)
                     console.log(res.data)
 
-                }
-                
+                }               
             }            
             catch(err) {console.log(err)}       
-        }
-       
+        }      
     }
     const userAuthenticated =()=>{
       //console.log( localStorage.getItem('token'));
-
       axios.get("http://localhost:5000/isUserAuth/",{
         headers:{
           "x-access-token":localStorage.getItem("token"),
@@ -91,8 +95,6 @@ const [formValid, setFormValid] = useState()
       }).then((response)=>console.log(response))
       .catch((err)=> console.log(err))
     }
-
-
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -102,6 +104,8 @@ const [formValid, setFormValid] = useState()
       event.preventDefault();
     };
     return (
+      <ThemeProvider   theme={theme}>
+     <CssBaseline />
         <Paper elevation={0}>
         <form onSubmit={handlesubmit} > 
         <Paper elevation={0}>
@@ -139,6 +143,7 @@ const [formValid, setFormValid] = useState()
         <Paper elevation={0}>{formValid && <Alert variant="outlined" severity="error">  {formValid} </Alert> }  </Paper>
         <Paper elevation={0}>{success && <Alert variant='outlined' severity='success'>{success}</Alert> }  </Paper>
         </Paper>
+        </ThemeProvider>
       )
 }
 
