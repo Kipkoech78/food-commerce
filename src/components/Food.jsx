@@ -1,8 +1,8 @@
 import { Grid, Box, Typography, Paper,Button } from '@mui/material'
-import React from 'react'
+import React,{ useEffect,useState} from 'react'
 import { styled } from '@mui/material/styles';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import foods from './food.json';
+//import foods from './food.json';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,8 +16,30 @@ const Item = styled(Paper)(({ theme }) => ({
     }),
   }));
 
+ 
 function Food() {
-    return (
+  const [foods, setFoods] = useState([]);
+  useEffect(()=>{
+   fetch("http://localhost:5000/food/",
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((response) =>{
+        if(!response.ok){
+          throw new Error('Network response was not ok');
+        }else{
+          return response.json();
+        }
+      } ).then((data)=>{
+        setFoods(data);
+      }).catch((error)=>{
+        console.error('There has been a problem with your fetch operation:', error);
+      })
+     
+  },[])  
+   return (
 
   <Box display={'flex'} sx={{ flexGrow: 1 }}>
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
